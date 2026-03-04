@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ГОЛОГРАФИЧЕСКИЙ ЩИТ · ультимативная версия</title>
+  <!-- Премиальные шрифты -->
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Satoshi:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* ========== МАКСИМАЛЬНО ОПТИМИЗИРОВАННАЯ СИСТЕМА ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      /* Светлая палитра */
+      --lavender-light: #f2e9ff;
+      --purple-soft: #d4b5ff;
+      --pink-soft: #ffd9f0;
+      --blue-soft: #d4ecff;
+      
+      /* Неоновые акценты */
+      --neon-purple: #b577ff;
+      --neon-pink: #ff99d6;
+      --neon-blue: #80bfff;
+      
+      /* Градиенты */
+      --gradient-holo: linear-gradient(135deg, #b577ff, #ff99d6, #80bfff, #b577ff);
+      
+      /* Тени (оптимизированные) */
+      --shadow-sm: 0 10px 30px -10px rgba(100, 50, 180, 0.2);
+      --shadow-md: 0 20px 40px -15px rgba(100, 50, 180, 0.25);
+      --shadow-lg: 0 30px 60px -20px rgba(100, 50, 180, 0.3);
+      
+      /* Стекло */
+      --glass-light: rgba(255, 245, 255, 0.2);
+      --glass-medium: rgba(255, 240, 255, 0.3);
+      
+      /* Адаптивные размеры */
+      --container-padding: clamp(1rem, 4vw, 3rem);
+      --border-radius: clamp(30px, 6vw, 100px);
+      --h1-size: clamp(2.2rem, 8vw, 4.5rem);
+      --h2-size: clamp(1.8rem, 6vw, 3.5rem);
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #f5f0ff 0%, #f2e6fa 50%, #f5f0ff 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(0.5rem, 2vw, 1.5rem);
+      font-family: 'Satoshi', sans-serif;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ===== ОПТИМИЗИРОВАННЫЙ ФОН (БЕЗ ТЯЖЁЛЫХ АНИМАЦИЙ) ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(181,119,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(128,191,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(255,153,214,0.08) 0%, transparent 60%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Лёгкая текстура */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.005' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    /* ===== ДИЗАЙНЕРСКИЕ ЭЛЕМЕНТЫ (ОПТИМИЗИРОВАННЫЕ) ===== */
+    .design-circle {
+      position: fixed;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .design-circle:nth-child(1) {
+      width: min(600px, 80vw);
+      height: min(600px, 80vw);
+      top: -20%;
+      right: -10%;
+      border-color: rgba(181,119,255,0.1);
+    }
+
+    .design-circle:nth-child(2) {
+      width: min(500px, 70vw);
+      height: min(500px, 70vw);
+      bottom: -15%;
+      left: -10%;
+      border-color: rgba(128,191,255,0.1);
+    }
+
+    /* ===== ГЛАВНЫЙ КОНТЕЙНЕР (ОПТИМИЗИРОВАННЫЙ) ===== */
+    .app-container {
+      max-width: 1200px;
+      width: 100%;
+      background: var(--glass-light);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: var(--border-radius);
+      padding: var(--container-padding);
+      position: relative;
+      z-index: 100;
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.3s ease;
+    }
+
+    /* Простая, но эффектная рамка */
+    .app-container::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: calc(var(--border-radius) + 2px);
+      padding: 2px;
+      background: linear-gradient(45deg, #b577ff, #ff99d6, #80bfff);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* ===== ТИПОГРАФИКА (ОПТИМИЗИРОВАННАЯ) ===== */
+    h1, h2, h3 {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #8a5ac0, #b87ab0, #5a9ac0, #b87ac0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+    }
+
+    h1 { 
+      font-size: var(--h1-size); 
+      margin-bottom: 0.8rem; 
+    }
+    h2 { 
+      font-size: var(--h2-size); 
+      margin-bottom: 0.6rem; 
+    }
+    h3 { 
+      font-size: clamp(1.3rem, 5vw, 2rem); 
+      margin-bottom: 0.4rem; 
+    }
+
+    .holo-text {
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 400;
+      color: #2a1a3a;
+      line-height: 1.6;
+      font-size: clamp(0.95rem, 3vw, 1.1rem);
+    }
+
+    /* ===== КНОПКИ (ОПТИМИЗИРОВАННЫЕ) ===== */
+    .god-tier-button {
+      background: var(--glass-medium);
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 60px;
+      padding: clamp(1rem, 3vw, 1.5rem) clamp(1.5rem, 4vw, 2.5rem);
+      width: 100%;
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 600;
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      color: #2a1a3a;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Лёгкий эффект при нажатии/наведении */
+    .god-tier-button:active {
+      transform: scale(0.98);
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    @media (hover: hover) {
+      .god-tier-button:hover {
+        background: rgba(255, 255, 255, 0.4);
+        border-color: var(--neon-purple);
+        box-shadow: 0 0 30px rgba(181,119,255,0.3);
+      }
+    }
+
+    .god-tier-button:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* ===== КАРТОЧКИ (ОПТИМИЗИРОВАННЫЕ) ===== */
+    .dimensional-card {
+      background: var(--glass-light);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50px;
+      padding: clamp(1rem, 3vw, 1.8rem);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: clamp(1rem, 3vw, 1.8rem);
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+    }
+
+    @media (max-width: 500px) {
+      .dimensional-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+        padding: 1.2rem;
+      }
+    }
+
+    .dimensional-card:active {
+      transform: scale(0.99);
+      background: var(--glass-medium);
+    }
+
+    .card-emoji {
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      filter: drop-shadow(0 5px 15px rgba(181,119,255,0.2));
+    }
+
+    .card-button {
+      background: rgba(255, 255, 255, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 40px;
+      padding: 0.6rem 1.8rem;
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #2a1a3a;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    @media (max-width: 500px) {
+      .card-button {
+        width: 100%;
+        padding: 0.8rem;
+      }
+    }
+
+    .card-button:active {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ===== ОПЦИИ ОТВЕТОВ (ОПТИМИЗИРОВАННЫЕ) ===== */
+    .option-masterpiece {
+      background: var(--glass-light);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50px;
+      padding: clamp(1rem, 2.5vw, 1.5rem) clamp(1.2rem, 3vw, 1.8rem);
+      width: 100%;
+      text-align: left;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: clamp(1rem, 2.5vw, 1.5rem);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 500px) {
+      .option-masterpiece {
+        padding: 1rem;
+        gap: 1rem;
+      }
+    }
+
+    .option-masterpiece:active {
+      transform: scale(0.99);
+      background: var(--glass-medium);
+    }
+
+    .option-masterpiece.selected {
+      background: rgba(220, 200, 255, 0.3);
+      border-color: var(--neon-purple);
+      box-shadow: 0 0 0 2px rgba(181,119,255,0.3) inset;
+    }
+
+    .option-letter {
+      width: clamp(40px, 7vw, 55px);
+      height: clamp(40px, 7vw, 55px);
+      background: linear-gradient(135deg, #b577ff, #ff99d6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(1.3rem, 4vw, 1.8rem);
+      font-weight: 700;
+      color: white;
+      box-shadow: 0 5px 15px rgba(181,119,255,0.3);
+      flex-shrink: 0;
+    }
+
+    /* ===== ГОЛОГРАФИЧЕСКИЙ ДИСПЛЕЙ ===== */
+    .holo-display {
+      background: var(--glass-light);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50px;
+      padding: clamp(1.2rem, 4vw, 2rem);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Сообщения */
+    .message-left, .message-right {
+      padding: clamp(0.8rem, 2.5vw, 1.2rem) clamp(1.2rem, 3vw, 1.8rem);
+      border-radius: 40px;
+      max-width: 85%;
+      margin-bottom: 1rem;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 600px) {
+      .message-left, .message-right {
+        max-width: 95%;
+      }
+    }
+
+    .message-left {
+      background: rgba(220, 200, 255, 0.1);
+    }
+
+    .message-right {
+      background: rgba(200, 225, 255, 0.1);
+      margin-left: auto;
+    }
+
+    /* ===== ПРОГРЕСС-БАР (ОПТИМИЗИРОВАННЫЙ) ===== */
+    .progress-art {
+      background: var(--glass-light);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 50px;
+      padding: clamp(1rem, 3vw, 1.5rem);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      margin: 1.5rem 0;
+    }
+
+    .progress-track-art {
+      height: clamp(12px, 3vw, 16px);
+      background: rgba(200, 180, 220, 0.2);
+      border-radius: 30px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .progress-fill-art {
+      height: 100%;
+      background: linear-gradient(90deg, #b577ff, #ff99d6, #80bfff);
+      border-radius: 30px;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    /* ===== СКРОЛЛ (ОПТИМИЗИРОВАННЫЙ) ===== */
+    .scrollable {
+      max-height: 60vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-right: 5px;
+    }
+
+    .scrollable::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .scrollable::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    .scrollable::-webkit-scrollbar-thumb {
+      background: rgba(181,119,255,0.5);
+      border-radius: 10px;
+    }
+
+    /* ===== АНИМАЦИИ (ЛЁГКИЕ) ===== */
+    .fade-up-3d {
+      animation: fadeUp 0.4s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .text-center { text-align: center; }
+    .mb-5 { margin-bottom: 1.5rem; }
+    .mt-3 { margin-top: 1.2rem; }
+    .flex { display: flex; }
+    .justify-between { justify-content: space-between; }
+  </style>
+</head>
+<body>
+  <div class="design-circle"></div>
+  <div class="design-circle"></div>
+
+  <div id="app-root" class="app-container"></div>
+
+  <script>
+    (function() {
+      // Конфигурация (ВСЕ ТЕКСТЫ СОХРАНЕНЫ)
+      const config = {
+        app_title: 'Цифровой Щит',
+        hero_subtitle: 'Пройди тест и проверь, сможешь ли ты защититься от мошенников'
+      };
+
+      function shuffleCorrectAnswers(chapters) {
+        return chapters.map(chapter => {
+          const options = [...chapter.options];
+          const correctText = options.find(opt => opt.id === chapter.correct).text;
+          
+          for (let i = options.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [options[i], options[j]] = [options[j], options[i]];
+          }
+          
+          const newOptions = options.map((opt, index) => ({
+            id: String.fromCharCode(65 + index),
+            text: opt.text
+          }));
+          
+          const newCorrect = newOptions.find(opt => opt.text === correctText).id;
+          
+          return {
+            ...chapter,
+            options: newOptions,
+            correct: newCorrect
+          };
+        });
+      }
+
+      const originalChapters = [
+        { 
+          id: 1, emoji: '📦', title: 'Золотая доставка', 
+          story: 'Катя заказала новый смартфон на маркетплейсе и с нетерпением ждёт курьера. Телефон должен прийти сегодня, и она постоянно проверяет статус заказа...', 
+          caller: 'СЛУЖБА ДОСТАВКИ', callerIcon: '🚚', 
+          scammerMsg: 'Екатерина, здравствуйте! Курьер уже выехал, но из-за загруженности мы не успеваем. Чтобы получить заказ сегодня, перейдите по ссылке и оплатите ускоренную доставку (всего 50 рублей).',
+          katyaMsg: 'Ой, а ссылку прислать можете? Я прямо сейчас оплачу.',
+          question: 'Что делать, если курьер просит перейти по ссылке для оплаты?',
+          options: [
+            { id: 'A', text: 'Перейти по ссылке и ввести данные карты' },
+            { id: 'B', text: 'Положить трубку и проверить статус заказа в официальном приложении' },
+            { id: 'C', text: 'Попросить прислать ссылку в СМС, чтобы оплатить позже' },
+            { id: 'D', text: 'Отказаться от заказа' }
+          ],
+          correct: 'B',
+          explanation: 'Настоящие службы доставки никогда не просят оплату через сторонние ссылки! Всегда проверяйте информацию в официальном приложении магазина. Мошенники создают поддельные страницы оплаты, чтобы украсть данные вашей карты.'
+        },
+        { 
+          id: 2, emoji: '🏦', title: 'Служба безопасности', 
+          story: 'Кате пришло СМС о подозрительном входе в личный кабинет банка. Сердце ёкнуло — неужели взломали? Сразу после этого звонит телефон...', 
+          caller: 'БАНК РОССИИ', callerIcon: '🏛️', 
+          scammerMsg: 'Катя, это служба безопасности банка. На ваше имя пытаются оформить кредит на 500 000 рублей. Чтобы отменить заявку, срочно назовите код из СМС.',
+          katyaMsg: 'Какой код? Мне только что пришло сообщение... Сейчас продиктую.',
+          question: 'Ваши действия при звонке "из банка" с просьбой назвать код?',
+          options: [
+            { id: 'A', text: 'Назвать код, чтобы спасти свои деньги' },
+            { id: 'B', text: 'Сбросить звонок и позвонить в банк по номеру с карты' },
+            { id: 'C', text: 'Попросить перезвонить позже' },
+            { id: 'D', text: 'Записать код и отправить в ответном СМС' }
+          ],
+          correct: 'B',
+          explanation: 'Банк НИКОГДА не запрашивает коды из СМС по телефону! Это главное правило безопасности. Код из СМС — это ключ к вашим деньгам. Если сомневаетесь — положите трубку и сами перезвоните в банк по номеру на обороте карты.'
+        },
+        { 
+          id: 3, emoji: '👮', title: 'Капитан полиции', 
+          story: 'Обычный вечер. Катя смотрит сериал, когда раздаётся звонок с незнакомого номера. Голос на том конце провода звучит серьёзно и официально...', 
+          caller: 'МВД РОССИИ', callerIcon: '🚔', 
+          scammerMsg: 'Это капитан Сидоров, отдел по борьбе с мошенничеством. Ваши данные скомпрометированы. Для защиты средств необходимо перевести деньги на безопасный счёт. Это секретная операция, никому не сообщайте!',
+          katyaMsg: 'Ой, капитан, а что мне делать? Я очень волнуюсь за свои сбережения...',
+          question: 'Что делать, если "полицейский" просит перевести деньги на "безопасный счёт"?',
+          options: [
+            { id: 'A', text: 'Выполнить инструкции, ведь это полиция' },
+            { id: 'B', text: 'Прекратить разговор — полиция так не работает' },
+            { id: 'C', text: 'Попросить прислать документы на почту' },
+            { id: 'D', text: 'Перевести часть денег для проверки' }
+          ],
+          correct: 'B',
+          explanation: 'Полиция НИКОГДА не просит переводить деньги на "безопасные счета"! Это классическая схема мошенничества. Настоящие полицейские работают через официальные каналы и повестки, а не по телефону.'
+        },
+        { 
+          id: 4, emoji: '💼', title: 'Выгодная работа', 
+          story: 'Катя ищет подработку и разместила резюме на сайте вакансий. Приходит сообщение в мессенджер от "крупной компании" с очень заманчивым предложением...', 
+          caller: 'HR МЕНЕДЖЕР', callerIcon: '👔', 
+          scammerMsg: 'Поздравляем! Вы прошли отбор на удалённую работу с зарплатой 150 000₽/мес. Для оформления нужно оплатить регистрационный взнос 3000₽ и прислать фото паспорта.',
+          katyaMsg: 'Вау, это супер! А куда переводить деньги? И паспорт прямо сейчас сфотографировать?',
+          question: 'Вам предлагают высокооплачиваемую работу, но просят оплатить "взнос". Ваши действия?',
+          options: [
+            { id: 'A', text: 'Оплатить взнос — это инвестиция в карьеру' },
+            { id: 'B', text: 'Отказаться — честные работодатели не берут деньги с соискателей' },
+            { id: 'C', text: 'Отправить паспорт, но не платить' },
+            { id: 'D', text: 'Попросить скидку на взнос' }
+          ],
+          correct: 'B',
+          explanation: 'Настоящие работодатели НИКОГДА не просят деньги за трудоустройство! Это мошенничество. А фото паспорта мошенники используют для оформления кредитов на ваше имя.'
+        },
+        { 
+          id: 5, emoji: '📞', title: 'Оператор связи', 
+          story: 'Катя получает СМС: "Ваш номер будет заблокирован через 24 часа". Через минуту звонит "оператор" с предложением решить проблему...', 
+          caller: 'МОБИЛЬНЫЙ ОПЕРАТОР', callerIcon: '📱', 
+          scammerMsg: 'Ваш договор истекает, номер будет передан другому абоненту. Для продления назовите код из СМС или установите приложение для верификации по ссылке.',
+          katyaMsg: 'Ой нет, я не хочу потерять номер! Что нужно сделать?',
+          question: 'Оператор просит код из СМС для "продления номера". Что делать?',
+          options: [
+            { id: 'A', text: 'Назвать код, чтобы сохранить номер' },
+            { id: 'B', text: 'Положить трубку и позвонить оператору по официальному номеру' },
+            { id: 'C', text: 'Установить приложение по ссылке' },
+            { id: 'D', text: 'Попросить прислать код повторно' }
+          ],
+          correct: 'B',
+          explanation: 'Операторы связи не блокируют номера внезапно и не просят коды по телефону! Мошенники используют страх потери номера, чтобы получить доступ к вашим аккаунтам.'
+        }
+      ];
+
+      const chapters = shuffleCorrectAnswers(originalChapters);
+
+      let currentScreen = 'welcome';
+      let currentChapter = null;
+      let currentStep = 'story';
+      let selectedAnswer = null;
+      let completedChapters = [];
+
+      function render() {
+        const root = document.getElementById('app-root');
+        if (!root) return;
+
+        // WELCOME SCREEN
+        if (currentScreen === 'welcome') {
+          root.innerHTML = `
+            <div class="fade-up-3d text-center">
+              <div class="card-emoji" style="font-size:clamp(4rem, 15vw, 7rem);">🛡️</div>
+              <h1>${config.app_title}</h1>
+              <p class="holo-text" style="font-size:clamp(1.1rem, 4vw, 1.4rem); margin-bottom:2rem;">${config.hero_subtitle}</p>
+              
+              <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2rem;">
+                <div class="dimensional-card" style="padding:0.8rem; justify-content:center;">
+                  <span style="font-size:2rem;">📖</span>
+                  <span class="holo-text">5 реальных сценариев с мошенниками</span>
+                </div>
+                <div class="dimensional-card" style="padding:0.8rem; justify-content:center;">
+                  <span style="font-size:2rem;">🎯</span>
+                  <span class="holo-text">интерактивные решения с обратной связью</span>
+                </div>
+                <div class="dimensional-card" style="padding:0.8rem; justify-content:center;">
+                  <span style="font-size:2rem;">💡</span>
+                  <span class="holo-text">научись защищать себя и близких</span>
+                </div>
+              </div>
+
+              <button class="god-tier-button" id="startBtn">
+                начать тест
+              </button>
+              <p class="holo-text" style="font-size:0.9rem; margin-top:1.5rem;">Катя рассчитывает на твою помощь</p>
+            </div>
+          `;
+          document.getElementById('startBtn')?.addEventListener('click', () => {
+            currentScreen = 'chapters';
+            render();
+          });
+        }
+
+        // CHAPTERS SCREEN
+        else if (currentScreen === 'chapters') {
+          const completedCount = completedChapters.length;
+          const progressPercent = (completedCount / chapters.length) * 100;
+          
+          const chaptersHtml = chapters.map(ch => {
+            const isCompleted = completedChapters.includes(ch.id);
+            return `
+              <div class="dimensional-card fade-up-3d" data-id="${ch.id}">
+                <span class="card-emoji">${ch.emoji}</span>
+                <div style="flex:1;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.3rem;">
+                    <span class="holo-text" style="color:#8a5ac0;">Глава ${ch.id}</span>
+                    ${isCompleted ? '<span style="color:#8a5ac0; font-size:2rem;">✓</span>' : ''}
+                  </div>
+                  <h3 style="margin:0.2rem 0 0.5rem;">${ch.title}</h3>
+                  <button class="card-button" data-chapter="${ch.id}">${isCompleted ? 'пройти снова' : 'начать'}</button>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          root.innerHTML = `
+            <div>
+              <div class="text-center mb-5">
+                <span class="card-emoji">🛡️</span>
+                <h2>${config.app_title}</h2>
+                <p class="holo-text">выбери сценарий</p>
+              </div>
+
+              <div class="progress-art mb-5">
+                <div class="flex justify-between mb-2" style="flex-wrap:wrap; gap:0.3rem;">
+                  <span class="holo-text">прогресс</span>
+                  <span class="holo-text" style="color:#8a5ac0;">${completedCount}/${chapters.length}</span>
+                </div>
+                <div class="progress-track-art">
+                  <div class="progress-fill-art" style="width:${progressPercent}%;"></div>
+                </div>
+              </div>
+
+              <div class="scrollable">${chaptersHtml}</div>
+
+              ${completedCount === 5 ? `
+                <div class="dimensional-card mt-3 text-center" style="padding:1.5rem;">
+                  <span style="font-size:3rem;">🏆</span>
+                  <h3 style="margin:0.5rem 0;">ты всё прошёл!</h3>
+                  <p class="holo-text">теперь ты настоящий цифровой защитник</p>
+                </div>
+              ` : ''}
+            </div>
+          `;
+
+          document.querySelectorAll('.card-button').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const id = parseInt(btn.dataset.chapter);
+              currentChapter = chapters.find(c => c.id === id);
+              currentStep = 'story';
+              selectedAnswer = null;
+              currentScreen = 'game';
+              render();
+            });
+          });
+
+          document.querySelectorAll('.dimensional-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+              if (e.target.classList.contains('card-button')) return;
+              const id = parseInt(card.dataset.id);
+              currentChapter = chapters.find(c => c.id === id);
+              currentStep = 'story';
+              selectedAnswer = null;
+              currentScreen = 'game';
+              render();
+            });
+          });
+        }
+
+        // GAME SCREEN
+        else if (currentScreen === 'game') {
+          if (!currentChapter) return;
+          const ch = currentChapter;
+
+          if (currentStep === 'story') {
+            root.innerHTML = `
+              <div class="fade-up-3d">
+                <div style="display:flex; gap:1rem; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap;">
+                  <span class="card-emoji">${ch.emoji}</span>
+                  <div>
+                    <span class="holo-text" style="color:#8a5ac0;">Глава ${ch.id}</span>
+                    <h2>${ch.title}</h2>
+                  </div>
+                </div>
+                <div class="holo-display" style="margin-bottom:1.5rem;">
+                  <p class="holo-text">${ch.story}</p>
+                </div>
+                <div style="display:flex; gap:1rem; justify-content:center; margin:1.5rem 0; flex-wrap:wrap;">
+                  <span style="font-size:clamp(2.5rem, 10vw, 4rem);">📞</span>
+                  <span class="holo-text" style="color:#8a5ac0;">входящий вызов...</span>
+                </div>
+                <button class="god-tier-button" id="nextStepBtn">
+                  принять вызов
+                </button>
+              </div>
+            `;
+            document.getElementById('nextStepBtn')?.addEventListener('click', () => {
+              currentStep = 'call';
+              render();
+            });
+          }
+
+          else if (currentStep === 'call') {
+            root.innerHTML = `
+              <div class="holo-display fade-up-3d">
+                <div class="text-center">
+                  <span style="font-size:clamp(3rem, 12vw, 5rem);">${ch.callerIcon}</span>
+                  <p style="color:#8a5ac0; margin-top:0.3rem;">ВХОДЯЩИЙ ВЫЗОВ</p>
+                  <h3 style="color:#2a1a3a;">${ch.caller}</h3>
+                </div>
+                <div style="margin:1.5rem 0;">
+                  <div class="message-left mb-4">
+                    <span style="color:#b87ab0;">МОШЕННИК</span>
+                    <p class="holo-text">${ch.scammerMsg}</p>
+                  </div>
+                  <div class="message-right">
+                    <span style="color:#5a9ac0;">КАТЯ</span>
+                    <p class="holo-text">${ch.katyaMsg}</p>
+                  </div>
+                </div>
+                <button class="god-tier-button" id="nextCallBtn">
+                  продолжить →
+                </button>
+              </div>
+            `;
+            document.getElementById('nextCallBtn')?.addEventListener('click', () => {
+              currentStep = 'question';
+              render();
+            });
+          }
+
+          else if (currentStep === 'question') {
+            const optionsHtml = ch.options.map(opt => `
+              <button class="option-masterpiece ${selectedAnswer === opt.id ? 'selected' : ''}" data-opt="${opt.id}">
+                <span class="option-letter">${opt.id}</span>
+                <span class="holo-text" style="flex:1;">${opt.text}</span>
+              </button>
+            `).join('');
+
+            root.innerHTML = `
+              <div class="fade-up-3d">
+                <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap;">
+                  <span style="font-size:2rem;">🤔</span>
+                  <h3>выбери действие</h3>
+                </div>
+                <div class="holo-display" style="margin-bottom:1.5rem;">
+                  <p class="holo-text" style="font-size:1.1rem;">${ch.question}</p>
+                </div>
+                ${optionsHtml}
+                <button class="god-tier-button mt-3" id="checkBtn" ${!selectedAnswer ? 'disabled' : ''}>
+                  подтвердить выбор
+                </button>
+              </div>
+            `;
+
+            document.querySelectorAll('.option-masterpiece').forEach(btn => {
+              btn.addEventListener('click', () => {
+                selectedAnswer = btn.dataset.opt;
+                render();
+              });
+            });
+
+            document.getElementById('checkBtn')?.addEventListener('click', () => {
+              if (!selectedAnswer) return;
+              if (selectedAnswer === ch.correct && !completedChapters.includes(ch.id)) {
+                completedChapters.push(ch.id);
+              }
+              currentStep = 'result';
+              render();
+            });
+          }
+
+          else if (currentStep === 'result') {
+            const isCorrect = selectedAnswer === ch.correct;
+            const correctOpt = ch.options.find(o => o.id === ch.correct);
+
+            root.innerHTML = `
+              <div class="fade-up-3d text-center">
+                <div style="font-size:clamp(3rem, 12vw, 5rem);">${isCorrect ? '🏆' : '💭'}</div>
+                <h2 style="color:${isCorrect ? '#b577ff' : '#ff99d6'};">${isCorrect ? 'верно!' : 'почти...'}</h2>
+                <p class="holo-text" style="margin-bottom:1.5rem;">${isCorrect ? 'ты принял правильное решение' : 'попробуй иначе в следующий раз'}</p>
+
+                <div class="holo-display" style="margin-bottom:1.5rem;">
+                  <span style="font-size:2rem;">💡</span>
+                  <p class="holo-text">${ch.explanation}</p>
+                </div>
+
+                <div class="dimensional-card" style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem;">
+                  <span class="option-letter" style="width:50px; height:50px;">${ch.correct}</span>
+                  <span class="holo-text">${correctOpt.text}</span>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:0.8rem;">
+                  ${ch.id < 5 ? `<button class="god-tier-button" id="nextChapterBtn">следующая глава →</button>` : ''}
+                  <button class="god-tier-button" id="chaptersBtn">к списку глав</button>
+                </div>
+              </div>
+            `;
+
+            if (ch.id < 5) {
+              document.getElementById('nextChapterBtn')?.addEventListener('click', () => {
+                currentChapter = chapters.find(c => c.id === ch.id + 1);
+                currentStep = 'story';
+                selectedAnswer = null;
+                render();
+              });
+            }
+
+            document.getElementById('chaptersBtn')?.addEventListener('click', () => {
+              currentScreen = 'chapters';
+              currentChapter = null;
+              render();
+            });
+          }
+        }
+      }
+
+      render();
+    })();
+  </script>
+</body>
+</html>
